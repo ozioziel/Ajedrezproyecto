@@ -6,7 +6,7 @@ tarea de programacion 2, Ajedrez que comprueba si el rey se encuentra en jaque, 
 ![](res/piezas/tablero.png)
 
 
-Este es un programa de java, y el archivo Main se encuentra en:
+Este es un programa hecho en java, y el archivo Main se encuentra en:
 \src\ches\Main.java
 para ejecutar el programa se debe colocar los dos siguientes comandos en el git bash:
 

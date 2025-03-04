@@ -11,5 +11,6 @@ Este es un programa de java, y el archivo Main se encuentra en:
 para ejecutar el programa se debe colocar los dos siguientes comandos en el git bash:
 
 javac -d bin src/ches/*.java
+
 java -cp bin ches.Main
 

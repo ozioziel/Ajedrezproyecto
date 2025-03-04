@@ -23,9 +23,9 @@ import entity.entidad;
 
 
 public class panel extends JPanel implements Runnable{
-    final int tamañoOrigen = 16;
+    final int tamanoOrigen = 16;
     final int escala = 5;
-    public final int Tile = tamañoOrigen * escala;
+    public final int Tile = tamanoOrigen * escala;
     final int maxScreenCol = 16;
     final int maxScreenRow = 16;
     

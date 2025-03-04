@@ -12,14 +12,21 @@ import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import entity.entidad;
+
 
 
 public class panel extends JPanel implements Runnable{
@@ -57,6 +64,11 @@ public class panel extends JPanel implements Runnable{
     private BufferedImage pinguino3;
     int FPS = 60;
 
+    File pop; 
+    private Clip clip;
+          
+    
+
     public panel() {
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.black);
@@ -69,8 +81,7 @@ public class panel extends JPanel implements Runnable{
         piezasList.add(peon);
         piezasList.add(torre);
         piezasList.add(reina);
-        
-
+  
         for (int i1 = 0; i1 < 8; i1++) {
             ArrayList<pos> paneles = new ArrayList<>();
             for (int j = 0; j < 8; j++) {
@@ -93,7 +104,11 @@ public class panel extends JPanel implements Runnable{
             pinguino1 = ImageIO.read(getClass().getResourceAsStream("/piezas/pinguino1.png"));
             pinguino2 = ImageIO.read(getClass().getResourceAsStream("/piezas/pinguino2.png"));
             pinguino3 = ImageIO.read(getClass().getResourceAsStream("/piezas/pinguino3.png"));
-        } catch (IOException e) {
+            pop = new File("/piezas/pop.wav");
+            AudioInputStream sonido = AudioSystem.getAudioInputStream(getClass().getResource("/piezas/pop.wav"));
+            clip = AudioSystem.getClip();
+            clip.open(sonido);
+        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
             e.printStackTrace();
         }
 
@@ -224,15 +239,21 @@ public class panel extends JPanel implements Runnable{
         }
         if (evento_mouse.mouseRightClicked) {
         tableroS.impresion();
+        evento_mouse.mouseRightClicked= false;
         }
 
         if (mouse.x > pinguin.x && mouse.y> pinguin.y &&mouse.x < pinguin.x+Tile && mouse.y < pinguin.y+Tile)
         	{pinguin.imagen = pinguino2;
         	if (evento_mouse.click)
         	{
+                
         		pinguin.imagen = pinguino3;
+                clip.setFramePosition(0);
+                clip.start();
         		borrarpiezas();
+                
         	}
+            evento_mouse.mouseRightClicked= false;
         	}
         else if (pinguin.imagen != pinguino1)
         	pinguin.imagen = pinguino1;
